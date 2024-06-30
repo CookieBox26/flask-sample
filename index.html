@@ -61,21 +61,16 @@ div.container > div > input {
 <body>
 <h1>フォーム</h1>
 
-<form id="main-form" action="/post" method="POST">
+<form action="/post" method="POST">
 
 <div class="container">
-  <select name="sample_index" onchange="updateSelected(event)">
+  <select name="sample_index" onchange="this.form.submit()">
     <option value="-1">入力パラメータ読込</option>
     {% for sample_param in vars.sample_params %}
       <option value="{{ loop.index - 1 }}">{{ sample_param.label }}</option>
     {% endfor %}
   </select>
 </div>
-<script type="text/javascript"><!--
-function updateSelected(event) {
-  document.getElementById('main-form').submit();
-}
-// --></script>
 
 <div class="container">
   <div>
