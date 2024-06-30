@@ -61,7 +61,7 @@ div.container > div > input {
 <body>
 <h1>フォーム</h1>
 
-<form action="/post" method="POST">
+<form id="main-form" action="/post" method="POST">
 
 <div class="container">
   <select name="sample_index" onchange="updateSelected(event)">
@@ -70,12 +70,10 @@ div.container > div > input {
       <option value="{{ loop.index - 1 }}">{{ sample_param.label }}</option>
     {% endfor %}
   </select>
-  <button type="submit" id="id_dummy_btn_preset" style="display: none;">
-  </button>
 </div>
 <script type="text/javascript"><!--
 function updateSelected(event) {
-  document.getElementById('id_dummy_btn_preset').click();
+  document.getElementById('main-form').submit();
 }
 // --></script>
 
