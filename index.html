@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>フォーム</title>
+<style>
+<!--
+body, input, button, select {
+  font-family: 'Trebuchet MS', sans-serif;
+  color: #303030;
+  letter-spacing: 0.06em;
+  line-height: 1.4;
+  word-break: break-all;
+  overflow-wrap: break-word;
+  white-space: normal;
+}
+body {
+  padding: 10px 20px;
+  width: 500px;
+  font-size: 92%;
+}
+h1, h2, h3, h4 {
+  margin: 0.2em 0;
+  font-weight: normal;
+}
+input, button {
+  border-radius: 0;
+  border: 1px solid darkgray;
+}
+input {
+  font-size: 100%;
+}
+button {
+  font-size: 110%;
+  padding: 5px 10px;
+}
+div.container {
+  margin: 10px 0;
+}
+div.container > div {
+  display: flex;
+  margin: 5px 0;
+  position: relative;
+}
+div.container > div > div.label {
+  flex-basis: 30%;
+}
+div.container > div > div.label::after {
+  position: absolute;
+  left: 27%;
+  content: ':';
+}
+div.container > div > input {
+  flex-basis: 70%;
+}
+-->
+</style>
+</head>
+<body>
+<h1>フォーム</h1>
+
+<form action="/post" method="POST">
+
+<div class="container">
+  <select name="sample_index" onchange="updateSelected(event)">
+    <option value="-1">入力パラメータ読込</option>
+    {% for sample_param in vars.sample_params %}
+      <option value="{{ loop.index - 1 }}">{{ sample_param.label }}</option>
+    {% endfor %}
+  </select>
+  <button type="submit" id="id_dummy_btn_preset" style="display: none;">
+  </button>
+</div>
+<script type="text/javascript"><!--
+function updateSelected(event) {
+  document.getElementById('id_dummy_btn_preset').click();
+}
+// --></script>
+
+<div class="container">
+  <div>
+    <div class="label">都道府県</div>
+    <input name="todofuken" value="{{ vars.todofuken }}"/>
+  </div>
+  <div>
+    <div class="label">市町村</div>
+    <input name="shichoson" value="{{ vars.shichoson }}"/>
+  </div>
+</div>
+
+<div class="container">
+  <button type="submit" name="btn_exec">実行する</button>
+</div>
+
+{% if vars.message %}
+  <div class="container">
+    {{ vars.message }}
+  </div>
+  <a href="{{ vars.sharing_url }}">この入力値をプリセットしたURL</a>
+{% endif %}
+
+</form>
+</body>
+</html>
